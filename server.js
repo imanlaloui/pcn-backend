@@ -59,4 +59,18 @@ app.get('/add-test', async (req, res) => {
     console.error(error);
     res.status(500).send('Error adding test ticket');
   }
+});// 📄 Get all tickets
+app.get('/tickets', async (req, res) => {
+  try {
+    const snapshot = await db.collection('tickets').get();
+
+    const tickets = snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+
+    res.json(tickets);
+  } catch (error) {
+    res.status(500).send(error.toString());
+  }
 });

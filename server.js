@@ -12,9 +12,12 @@ const serviceAccount = {
   projectId: "pcn-5d106"
 };
 
+const admin = require('firebase-admin');
+
+const serviceAccount = require('./serviceAccountKey.json');
+
 admin.initializeApp({
-  credential: admin.credential.applicationDefault(),
-  projectId: "pcn-5d106"
+  credential: admin.credential.cert(serviceAccount)
 });
 
 const db = admin.firestore();
